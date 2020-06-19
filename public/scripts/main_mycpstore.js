@@ -38,28 +38,28 @@ var listeningFirebaseRefs = [];
  * Saves a new post to the Firebase DB.
  */
 // [START write_fan_out]
-function writeNewPost(uid, username, picture, title, body) {
-  // A post entry.
-  var postData = {
-    author: username,
-    uid: uid,
-    body: body,
-    title: title,
-    starCount: 0,
-    authorPic: picture
-  };
-
-  // Get a key for a new Post.
-  var newPostKey = firebase.database().ref().child('posts').push().key;
-  console.log(newPostKey);
-
-  // Write the new post's data simultaneously in the posts list and the user's post list.
-  var updates = {};
-  updates['/posts/' + newPostKey] = postData;
-  updates['/user-posts/' + uid + '/' + newPostKey] = postData;
-
-  return firebase.database().ref().update(updates);
-}
+// function writeNewPost(uid, username, picture, title, body) {
+//   // A post entry.
+//   var postData = {
+//     author: username,
+//     uid: uid,
+//     body: body,
+//     title: title,
+//     starCount: 0,
+//     authorPic: picture
+//   };
+//
+//   // Get a key for a new Post.
+//   var newPostKey = firebase.database().ref().child('posts').push().key;
+//   console.log(newPostKey);
+//
+//   // Write the new post's data simultaneously in the posts list and the user's post list.
+//   var updates = {};
+//   updates['/posts/' + newPostKey] = postData;
+//   updates['/user-posts/' + uid + '/' + newPostKey] = postData;
+//
+//   return firebase.database().ref().update(updates);
+// }
 // [END write_fan_out]
 
 /**
@@ -368,15 +368,14 @@ function onAuthStateChanged(user) {
  */
 function newPostForCurrentUser(title, text) {
   // [START single_value_read]
-  var userId = firebase.auth().currentUser.uid;
-  return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-    // [START_EXCLUDE]
-    return writeNewPost(firebase.auth().currentUser.uid, username,
-      firebase.auth().currentUser.photoURL,
-      title, text);
-    // [END_EXCLUDE]
-  });
+  // var userId = firebase.auth().currentUser.uid;
+  // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+  //   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  //   // [START_EXCLUDE]
+  //   return writeNewPost(firebase.auth().currentUser.uid, username,
+  //     firebase.auth().currentUser.photoURL,title, text);
+  //   // [END_EXCLUDE]
+  // });
   // [END single_value_read]
 }
 
