@@ -25,9 +25,9 @@ var signOutButton = document.getElementById('sign-out-button');
 var splashPage = document.getElementById('page-splash');
 var addPost = document.getElementById('add-post');
 var addButton = document.getElementById('add');
-var recentPostsSection = document.getElementById('recent-posts-list');
-var userPostsSection = document.getElementById('user-posts-list');
-var topUserPostsSection = document.getElementById('top-user-posts-list');
+var homeSection = document.getElementById('home-list');
+var previsionSection = document.getElementById('prevision-list');
+var settingsSection = document.getElementById('settings-list');
 var homeMenuButton = document.getElementById('menu-home');
 var previsionMenuButton = document.getElementById('menu-prevision');
 var settingsMenuButton = document.getElementById('menu-settings');
@@ -293,9 +293,9 @@ function startDatabaseQueries() {
   };
 
   // Fetching and displaying all posts of each sections.
-  fetchPosts(topUserPostsRef, topUserPostsSection);
-  fetchPosts(recentPostsRef, recentPostsSection);
-  fetchPosts(userPostsRef, userPostsSection);
+  fetchPosts(topUserPostsRef, settingsSection);
+  fetchPosts(recentPostsRef, homeSection);
+  fetchPosts(userPostsRef, previsionSection);
 
   // Keep track of all Firebase refs we are listening to.
   listeningFirebaseRefs.push(topUserPostsRef);
@@ -321,9 +321,9 @@ function writeUserData(userId, name, email, imageUrl) {
  */
 function cleanupUi() {
   // Remove all previously displayed posts.
-  topUserPostsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-  recentPostsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-  userPostsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
+  settingsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
+  homeSection.getElementsByClassName('posts-container')[0].innerHTML = '';
+  previsionSection.getElementsByClassName('posts-container')[0].innerHTML = '';
 
   // Stop all currently listening Firebase listeners.
   listeningFirebaseRefs.forEach(function(ref) {
@@ -382,9 +382,9 @@ function newPostForCurrentUser(title, text) {
  * Displays the given section element and changes styling of the given button.
  */
 function showSection(sectionElement, buttonElement) {
-  recentPostsSection.style.display = 'none';
-  userPostsSection.style.display = 'none';
-  topUserPostsSection.style.display = 'none';
+  homeSection.style.display = 'none';
+  previsionSection.style.display = 'none';
+  settingsSection.style.display = 'none';
   addPost.style.display = 'none';
   homeMenuButton.classList.remove('is-active');
   previsionMenuButton.classList.remove('is-active');
@@ -430,13 +430,13 @@ window.addEventListener('load', function() {
 
   // Bind menu buttons.
   homeMenuButton.onclick = function() {
-    showSection(recentPostsSection, homeMenuButton);
+    showSection(homeSection, homeMenuButton);
   };
   previsionMenuButton.onclick = function() {
-    showSection(userPostsSection, previsionMenuButton);
+    showSection(previsionSection, previsionMenuButton);
   };
   settingsMenuButton.onclick = function() {
-    showSection(topUserPostsSection, settingsMenuButton);
+    showSection(settingsSection, settingsMenuButton);
   };
   addButton.onclick = function() {
     showSection(addPost);
