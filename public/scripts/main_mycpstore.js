@@ -23,14 +23,15 @@ var titleInput = document.getElementById('new-post-title');
 var signInButton = document.getElementById('sign-in-button');
 var signOutButton = document.getElementById('sign-out-button');
 var splashPage = document.getElementById('page-splash');
-var addPost = document.getElementById('add-post');
-var addButton = document.getElementById('add');
+
 var homeSection = document.getElementById('home-list');
 var previsionSection = document.getElementById('prevision-list');
 var settingsSection = document.getElementById('settings-list');
+
 var homeMenuButton = document.getElementById('menu-home');
 var previsionMenuButton = document.getElementById('menu-prevision');
 var settingsMenuButton = document.getElementById('menu-settings');
+
 var listeningFirebaseRefs = [];
 
 /**
@@ -386,7 +387,7 @@ function showSection(sectionElement, buttonElement) {
   homeSection.style.display = 'none';
   previsionSection.style.display = 'none';
   settingsSection.style.display = 'none';
-  addPost.style.display = 'none';
+
   homeMenuButton.classList.remove('is-active');
   previsionMenuButton.classList.remove('is-active');
   settingsMenuButton.classList.remove('is-active');
@@ -439,10 +440,6 @@ window.addEventListener('load', function() {
   settingsMenuButton.onclick = function() {
     showSection(settingsSection, settingsMenuButton);
   };
-  addButton.onclick = function() {
-    showSection(addPost);
-    messageInput.value = '';
-    titleInput.value = '';
-  };
+
   homeMenuButton.onclick();
 }, false);
