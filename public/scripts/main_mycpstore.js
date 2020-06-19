@@ -50,6 +50,7 @@ function writeNewPost(uid, username, picture, title, body) {
 
   // Get a key for a new Post.
   var newPostKey = firebase.database().ref().child('posts').push().key;
+  console.log(newPostKey);
 
   // Write the new post's data simultaneously in the posts list and the user's post list.
   var updates = {};
