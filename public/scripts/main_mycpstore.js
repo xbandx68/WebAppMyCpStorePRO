@@ -28,9 +28,9 @@ var addButton = document.getElementById('add');
 var recentPostsSection = document.getElementById('recent-posts-list');
 var userPostsSection = document.getElementById('user-posts-list');
 var topUserPostsSection = document.getElementById('top-user-posts-list');
-var recentMenuButton = document.getElementById('menu-recent');
-var myPostsMenuButton = document.getElementById('menu-my-posts');
-var myTopPostsMenuButton = document.getElementById('menu-my-top-posts');
+var homeMenuButton = document.getElementById('menu-home');
+var previsionMenuButton = document.getElementById('menu-prevision');
+var settingsMenuButton = document.getElementById('menu-settings');
 var listeningFirebaseRefs = [];
 
 /**
@@ -386,9 +386,9 @@ function showSection(sectionElement, buttonElement) {
   userPostsSection.style.display = 'none';
   topUserPostsSection.style.display = 'none';
   addPost.style.display = 'none';
-  recentMenuButton.classList.remove('is-active');
-  myPostsMenuButton.classList.remove('is-active');
-  myTopPostsMenuButton.classList.remove('is-active');
+  homeMenuButton.classList.remove('is-active');
+  previsionMenuButton.classList.remove('is-active');
+  settingsMenuButton.classList.remove('is-active');
 
   if (sectionElement) {
     sectionElement.style.display = 'block';
@@ -421,7 +421,7 @@ window.addEventListener('load', function() {
     var title = titleInput.value;
     if (text && title) {
       newPostForCurrentUser(title, text).then(function() {
-        myPostsMenuButton.click();
+        previsionMenuButton.click();
       });
       messageInput.value = '';
       titleInput.value = '';
@@ -429,19 +429,19 @@ window.addEventListener('load', function() {
   };
 
   // Bind menu buttons.
-  recentMenuButton.onclick = function() {
-    showSection(recentPostsSection, recentMenuButton);
+  homeMenuButton.onclick = function() {
+    showSection(recentPostsSection, homeMenuButton);
   };
-  myPostsMenuButton.onclick = function() {
-    showSection(userPostsSection, myPostsMenuButton);
+  previsionMenuButton.onclick = function() {
+    showSection(userPostsSection, previsionMenuButton);
   };
-  myTopPostsMenuButton.onclick = function() {
-    showSection(topUserPostsSection, myTopPostsMenuButton);
+  settingsMenuButton.onclick = function() {
+    showSection(topUserPostsSection, settingsMenuButton);
   };
   addButton.onclick = function() {
     showSection(addPost);
     messageInput.value = '';
     titleInput.value = '';
   };
-  recentMenuButton.onclick();
+  homeMenuButton.onclick();
 }, false);
