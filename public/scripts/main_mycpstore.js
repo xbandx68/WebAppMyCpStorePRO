@@ -15,11 +15,11 @@
  */
 'use strict';
 // Firebase App is always required and must be first
-var firebase = require("firebase/app");
+//var firebase = require("firebase/app");
 
 // Add additional services you want to use
-require("firebase/auth");
-require("firebase/database");
+//require("firebase/auth");
+//require("firebase/database");
 
 // Shortcuts to DOM Elements.
 var messageForm = document.getElementById('message-form');
