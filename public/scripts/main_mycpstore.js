@@ -38,8 +38,9 @@ var listeningFirebaseRefs = [];
  * programmatic token refresh but not a User status change.
  */
 var currentUID;
-
-startDatabaseQueries();
+var myUserId = firebase.auth().currentUser.uid;
+console.log('Userid:' + myUserId + 'DisplayName:' + firebase.auth().currentUser.displayName);
+//startDatabaseQueries();
 /**
  * Saves a new post to the Firebase DB.
  */
@@ -270,8 +271,8 @@ function createNewComment(postId, username, uid, text) {
 function startDatabaseQueries() {
   // [START my_top_posts_query]
   var myUserId = firebase.auth().currentUser.uid;
-  console.log('start - startDatabaseQueries');
-  console.log(myUserId);
+  //console.log('start - startDatabaseQueries');
+  //console.log(myUserId);
   var topUserPostsRef = firebase.database().ref('user-posts/' + myUserId).orderByChild('starCount');
   // [END my_top_posts_query]
   // [START recent_posts_query]
