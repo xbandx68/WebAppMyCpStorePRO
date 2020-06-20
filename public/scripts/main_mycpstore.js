@@ -33,7 +33,11 @@ var previsionMenuButton = document.getElementById('menu-prevision');
 var settingsMenuButton = document.getElementById('menu-settings');
 
 var listeningFirebaseRefs = [];
-
+/**
+ * The ID of the currently signed-in User. We keep track of this to detect Auth state change events that are just
+ * programmatic token refresh but not a User status change.
+ */
+var currentUID;
 
 startDatabaseQueries();
 /**
@@ -338,11 +342,88 @@ function cleanupUi() {
   listeningFirebaseRefs = [];
 }
 
+// Bindings on load.
+console.log('Bindings on load')
+window.addEventListener('load', function() {
+  // Bind Sign in button.
+  signInButton.addEventListener('click', function() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    console.log(provider);
+    firebase.auth().signInWithPopup(provider);
+  });
+
+  // Bind Sign out button.
+  signOutButton.addEventListener('click', function() {
+    firebase.auth().signOut();
+  });
+
+  // Listen for auth state changes
+  firebase.auth().onAuthStateChanged(onAuthStateChanged);
+
+  // // Saves message on form submit.
+  // messageForm.onsubmit = function(e) {
+  //   e.preventDefault();
+  //   var text = messageInput.value;
+  //   var title = titleInput.value;
+  //   if (text && title) {
+  //     newPostForCurrentUser(title, text).then(function() {
+  //       previsionMenuButton.click();
+  //     });
+  //     messageInput.value = '';
+  //     titleInput.value = '';
+  //   }
+  // };
+
+  // Bind menu buttons.
+  homeMenuButton.onclick = function() {
+    showSection(homeSection, homeMenuButton);
+  };
+  previsionMenuButton.onclick = function() {
+    showSection(previsionSection, previsionMenuButton);
+  };
+  settingsMenuButton.onclick = function() {
+    showSection(settingsSection, settingsMenuButton);
+  };
+
+  homeMenuButton.onclick();
+}, false);
+
+
 /**
- * The ID of the currently signed-in User. We keep track of this to detect Auth state change events that are just
- * programmatic token refresh but not a User status change.
+ * Displays the given section element and changes styling of the given button.
  */
-var currentUID;
+function showSection(sectionElement, buttonElement) {
+  homeSection.style.display = 'none';
+  previsionSection.style.display = 'none';
+  settingsSection.style.display = 'none';
+
+  homeMenuButton.classList.remove('is-active');
+  previsionMenuButton.classList.remove('is-active');
+  settingsMenuButton.classList.remove('is-active');
+
+  if (sectionElement) {
+    sectionElement.style.display = 'block';
+  }
+  if (buttonElement) {
+    buttonElement.classList.add('is-active');
+  }
+}
+
+/**
+ * Creates a new post for the current user.
+ */
+function newPostForCurrentUser(title, text) {
+  // [START single_value_read]
+  // var userId = firebase.auth().currentUser.uid;
+  // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
+  //   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+  //   // [START_EXCLUDE]
+  //   return writeNewPost(firebase.auth().currentUser.uid, username,
+  //     firebase.auth().currentUser.photoURL,title, text);
+  //   // [END_EXCLUDE]
+  // });
+  // [END single_value_read]
+}
 
 /**
  * Triggers every time there is a change in the Firebase auth state (i.e. user signed-in or user signed out).
@@ -366,83 +447,3 @@ function onAuthStateChanged(user) {
     splashPage.style.display = '';
   }
 }
-
-/**
- * Creates a new post for the current user.
- */
-function newPostForCurrentUser(title, text) {
-  // [START single_value_read]
-  // var userId = firebase.auth().currentUser.uid;
-  // return firebase.database().ref('/users/' + userId).once('value').then(function(snapshot) {
-  //   var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-  //   // [START_EXCLUDE]
-  //   return writeNewPost(firebase.auth().currentUser.uid, username,
-  //     firebase.auth().currentUser.photoURL,title, text);
-  //   // [END_EXCLUDE]
-  // });
-  // [END single_value_read]
-}
-
-/**
- * Displays the given section element and changes styling of the given button.
- */
-function showSection(sectionElement, buttonElement) {
-  homeSection.style.display = 'none';
-  previsionSection.style.display = 'none';
-  settingsSection.style.display = 'none';
-
-  homeMenuButton.classList.remove('is-active');
-  previsionMenuButton.classList.remove('is-active');
-  settingsMenuButton.classList.remove('is-active');
-
-  if (sectionElement) {
-    sectionElement.style.display = 'block';
-  }
-  if (buttonElement) {
-    buttonElement.classList.add('is-active');
-  }
-}
-
-// Bindings on load.
-window.addEventListener('load', function() {
-  // Bind Sign in button.
-  signInButton.addEventListener('click', function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider);
-  });
-
-  // Bind Sign out button.
-  signOutButton.addEventListener('click', function() {
-    firebase.auth().signOut();
-  });
-
-  // Listen for auth state changes
-  firebase.auth().onAuthStateChanged(onAuthStateChanged);
-
-  // Saves message on form submit.
-  messageForm.onsubmit = function(e) {
-    e.preventDefault();
-    var text = messageInput.value;
-    var title = titleInput.value;
-    if (text && title) {
-      newPostForCurrentUser(title, text).then(function() {
-        previsionMenuButton.click();
-      });
-      messageInput.value = '';
-      titleInput.value = '';
-    }
-  };
-
-  // Bind menu buttons.
-  homeMenuButton.onclick = function() {
-    showSection(homeSection, homeMenuButton);
-  };
-  previsionMenuButton.onclick = function() {
-    showSection(previsionSection, previsionMenuButton);
-  };
-  settingsMenuButton.onclick = function() {
-    showSection(settingsSection, settingsMenuButton);
-  };
-
-  homeMenuButton.onclick();
-}, false);
