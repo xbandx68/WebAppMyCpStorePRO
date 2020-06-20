@@ -34,6 +34,8 @@ var settingsMenuButton = document.getElementById('menu-settings');
 
 var listeningFirebaseRefs = [];
 
+
+startDatabaseQueries();
 /**
  * Saves a new post to the Firebase DB.
  */
@@ -66,23 +68,23 @@ var listeningFirebaseRefs = [];
  * Star/unstar post.
  */
 // [START post_stars_transaction]
-function toggleStar(postRef, uid) {
-  postRef.transaction(function(post) {
-    if (post) {
-      if (post.stars && post.stars[uid]) {
-        post.starCount--;
-        post.stars[uid] = null;
-      } else {
-        post.starCount++;
-        if (!post.stars) {
-          post.stars = {};
-        }
-        post.stars[uid] = true;
-      }
-    }
-    return post;
-  });
-}
+// function toggleStar(postRef, uid) {
+//   postRef.transaction(function(post) {
+//     if (post) {
+//       if (post.stars && post.stars[uid]) {
+//         post.starCount--;
+//         post.stars[uid] = null;
+//       } else {
+//         post.starCount++;
+//         if (!post.stars) {
+//           post.stars = {};
+//         }
+//         post.stars[uid] = true;
+//       }
+//     }
+//     return post;
+//   });
+// }
 // [END post_stars_transaction]
 
 /**
@@ -184,14 +186,14 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
   };
 
   // Bind starring action.
-  var onStarClicked = function() {
-    var globalPostRef = firebase.database().ref('/posts/' + postId);
-    var userPostRef = firebase.database().ref('/user-posts/' + authorId + '/' + postId);
-    toggleStar(globalPostRef, uid);
-    toggleStar(userPostRef, uid);
-  };
-  unStar.onclick = onStarClicked;
-  star.onclick = onStarClicked;
+  // var onStarClicked = function() {
+  //   var globalPostRef = firebase.database().ref('/posts/' + postId);
+  //   var userPostRef = firebase.database().ref('/user-posts/' + authorId + '/' + postId);
+  //   toggleStar(globalPostRef, uid);
+  //   toggleStar(userPostRef, uid);
+  // };
+  // unStar.onclick = onStarClicked;
+  // star.onclick = onStarClicked;
 
   return postElement;
 }
@@ -210,53 +212,53 @@ function createNewComment(postId, username, uid, text) {
 /**
  * Updates the starred status of the post.
  */
-function updateStarredByCurrentUser(postElement, starred) {
-  if (starred) {
-    postElement.getElementsByClassName('starred')[0].style.display = 'inline-block';
-    postElement.getElementsByClassName('not-starred')[0].style.display = 'none';
-  } else {
-    postElement.getElementsByClassName('starred')[0].style.display = 'none';
-    postElement.getElementsByClassName('not-starred')[0].style.display = 'inline-block';
-  }
-}
+// function updateStarredByCurrentUser(postElement, starred) {
+//   if (starred) {
+//     postElement.getElementsByClassName('starred')[0].style.display = 'inline-block';
+//     postElement.getElementsByClassName('not-starred')[0].style.display = 'none';
+//   } else {
+//     postElement.getElementsByClassName('starred')[0].style.display = 'none';
+//     postElement.getElementsByClassName('not-starred')[0].style.display = 'inline-block';
+//   }
+// }
 
 /**
  * Updates the number of stars displayed for a post.
  */
-function updateStarCount(postElement, nbStart) {
-  postElement.getElementsByClassName('star-count')[0].innerText = nbStart;
-}
+// function updateStarCount(postElement, nbStart) {
+//   postElement.getElementsByClassName('star-count')[0].innerText = nbStart;
+// }
 
 /**
  * Creates a comment element and adds it to the given postElement.
  */
-function addCommentElement(postElement, id, text, author) {
-  var comment = document.createElement('div');
-  comment.classList.add('comment-' + id);
-  comment.innerHTML = '<span class="username"></span><span class="comment"></span>';
-  comment.getElementsByClassName('comment')[0].innerText = text;
-  comment.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
-
-  var commentsContainer = postElement.getElementsByClassName('comments-container')[0];
-  commentsContainer.appendChild(comment);
-}
+// function addCommentElement(postElement, id, text, author) {
+//   var comment = document.createElement('div');
+//   comment.classList.add('comment-' + id);
+//   comment.innerHTML = '<span class="username"></span><span class="comment"></span>';
+//   comment.getElementsByClassName('comment')[0].innerText = text;
+//   comment.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
+//
+//   var commentsContainer = postElement.getElementsByClassName('comments-container')[0];
+//   commentsContainer.appendChild(comment);
+// }
 
 /**
  * Sets the comment's values in the given postElement.
  */
-function setCommentValues(postElement, id, text, author) {
-  var comment = postElement.getElementsByClassName('comment-' + id)[0];
-  comment.getElementsByClassName('comment')[0].innerText = text;
-  comment.getElementsByClassName('fp-username')[0].innerText = author;
-}
+// function setCommentValues(postElement, id, text, author) {
+//   var comment = postElement.getElementsByClassName('comment-' + id)[0];
+//   comment.getElementsByClassName('comment')[0].innerText = text;
+//   comment.getElementsByClassName('fp-username')[0].innerText = author;
+// }
 
 /**
  * Deletes the comment of the given ID in the given postElement.
  */
-function deleteComment(postElement, id) {
-  var comment = postElement.getElementsByClassName('comment-' + id)[0];
-  comment.parentElement.removeChild(comment);
-}
+// function deleteComment(postElement, id) {
+//   var comment = postElement.getElementsByClassName('comment-' + id)[0];
+//   comment.parentElement.removeChild(comment);
+// }
 
 /**
  * Starts listening for new posts and populates posts lists.
@@ -264,6 +266,8 @@ function deleteComment(postElement, id) {
 function startDatabaseQueries() {
   // [START my_top_posts_query]
   var myUserId = firebase.auth().currentUser.uid;
+  console.log('start - startDatabaseQueries');
+  console.log(myUserId);
   var topUserPostsRef = firebase.database().ref('user-posts/' + myUserId).orderByChild('starCount');
   // [END my_top_posts_query]
   // [START recent_posts_query]
