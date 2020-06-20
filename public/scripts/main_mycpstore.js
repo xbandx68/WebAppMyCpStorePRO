@@ -43,8 +43,8 @@ var listeningFirebaseRefs = [];
  * programmatic token refresh but not a User status change.
  */
 var currentUID;
-var myUserId = firebase.auth().currentUser.uid;
-console.log('Userid:' + myUserId + 'DisplayName:' + firebase.auth().currentUser.displayName);
+var myUserId;
+
 //startDatabaseQueries();
 /**
  * Saves a new post to the Firebase DB.
@@ -100,6 +100,117 @@ console.log('Userid:' + myUserId + 'DisplayName:' + firebase.auth().currentUser.
 /**
  * Creates a post element.
  */
+
+
+/**
+ * Updates the starred status of the post.
+ */
+// function updateStarredByCurrentUser(postElement, starred) {
+//   if (starred) {
+//     postElement.getElementsByClassName('starred')[0].style.display = 'inline-block';
+//     postElement.getElementsByClassName('not-starred')[0].style.display = 'none';
+//   } else {
+//     postElement.getElementsByClassName('starred')[0].style.display = 'none';
+//     postElement.getElementsByClassName('not-starred')[0].style.display = 'inline-block';
+//   }
+// }
+
+/**
+ * Updates the number of stars displayed for a post.
+ */
+// function updateStarCount(postElement, nbStart) {
+//   postElement.getElementsByClassName('star-count')[0].innerText = nbStart;
+// }
+
+/**
+ * Creates a comment element and adds it to the given postElement.
+ */
+// function addCommentElement(postElement, id, text, author) {
+//   var comment = document.createElement('div');
+//   comment.classList.add('comment-' + id);
+//   comment.innerHTML = '<span class="username"></span><span class="comment"></span>';
+//   comment.getElementsByClassName('comment')[0].innerText = text;
+//   comment.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
+//
+//   var commentsContainer = postElement.getElementsByClassName('comments-container')[0];
+//   commentsContainer.appendChild(comment);
+// }
+
+/**
+ * Sets the comment's values in the given postElement.
+ */
+// function setCommentValues(postElement, id, text, author) {
+//   var comment = postElement.getElementsByClassName('comment-' + id)[0];
+//   comment.getElementsByClassName('comment')[0].innerText = text;
+//   comment.getElementsByClassName('fp-username')[0].innerText = author;
+// }
+
+/**
+ * Deletes the comment of the given ID in the given postElement.
+ */
+// function deleteComment(postElement, id) {
+//   var comment = postElement.getElementsByClassName('comment-' + id)[0];
+//   comment.parentElement.removeChild(comment);
+// }
+// Bindings on load.
+console.log('Bindings on load')
+window.addEventListener('load', function() {
+  // Bind Sign in button.
+  signInButton.addEventListener('click', function() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    console.log(provider);
+    firebase.auth().signInWithPopup(provider);
+  });
+
+  // Bind Sign out button.
+  signOutButton.addEventListener('click', function() {
+    firebase.auth().signOut();
+  });
+
+  // Listen for auth state changes
+  firebase.auth().onAuthStateChanged(onAuthStateChanged);
+
+  // // Saves message on form submit.
+  // messageForm.onsubmit = function(e) {
+  //   e.preventDefault();
+  //   var text = messageInput.value;
+  //   var title = titleInput.value;
+  //   if (text && title) {
+  //     newPostForCurrentUser(title, text).then(function() {
+  //       previsionMenuButton.click();
+  //     });
+  //     messageInput.value = '';
+  //     titleInput.value = '';
+  //   }
+  // };
+
+  // Bind menu buttons.
+  homeMenuButton.onclick = function() {
+    showSection(homeSection, homeMenuButton);
+  };
+  previsionMenuButton.onclick = function() {
+    showSection(previsionSection, previsionMenuButton);
+  };
+  settingsMenuButton.onclick = function() {
+    showSection(settingsSection, settingsMenuButton);
+  };
+
+  homeMenuButton.onclick();
+}, false);
+
+
+/**
+ * Writes the user's data to the database.
+ */
+// [START basic_write]
+function writeUserData(userId, name, email, imageUrl) {
+  firebase.database().ref('users/' + userId).set({
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}
+// [END basic_write]
 function createPostElement(postId, title, text, author, authorId, authorPic) {
   var uid = firebase.auth().currentUser.uid;
 
@@ -218,58 +329,6 @@ function createNewComment(postId, username, uid, text) {
     uid: uid
   });
 }
-
-/**
- * Updates the starred status of the post.
- */
-// function updateStarredByCurrentUser(postElement, starred) {
-//   if (starred) {
-//     postElement.getElementsByClassName('starred')[0].style.display = 'inline-block';
-//     postElement.getElementsByClassName('not-starred')[0].style.display = 'none';
-//   } else {
-//     postElement.getElementsByClassName('starred')[0].style.display = 'none';
-//     postElement.getElementsByClassName('not-starred')[0].style.display = 'inline-block';
-//   }
-// }
-
-/**
- * Updates the number of stars displayed for a post.
- */
-// function updateStarCount(postElement, nbStart) {
-//   postElement.getElementsByClassName('star-count')[0].innerText = nbStart;
-// }
-
-/**
- * Creates a comment element and adds it to the given postElement.
- */
-// function addCommentElement(postElement, id, text, author) {
-//   var comment = document.createElement('div');
-//   comment.classList.add('comment-' + id);
-//   comment.innerHTML = '<span class="username"></span><span class="comment"></span>';
-//   comment.getElementsByClassName('comment')[0].innerText = text;
-//   comment.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
-//
-//   var commentsContainer = postElement.getElementsByClassName('comments-container')[0];
-//   commentsContainer.appendChild(comment);
-// }
-
-/**
- * Sets the comment's values in the given postElement.
- */
-// function setCommentValues(postElement, id, text, author) {
-//   var comment = postElement.getElementsByClassName('comment-' + id)[0];
-//   comment.getElementsByClassName('comment')[0].innerText = text;
-//   comment.getElementsByClassName('fp-username')[0].innerText = author;
-// }
-
-/**
- * Deletes the comment of the given ID in the given postElement.
- */
-// function deleteComment(postElement, id) {
-//   var comment = postElement.getElementsByClassName('comment-' + id)[0];
-//   comment.parentElement.removeChild(comment);
-// }
-
 /**
  * Starts listening for new posts and populates posts lists.
  */
@@ -320,19 +379,6 @@ function startDatabaseQueries() {
 }
 
 /**
- * Writes the user's data to the database.
- */
-// [START basic_write]
-function writeUserData(userId, name, email, imageUrl) {
-  firebase.database().ref('users/' + userId).set({
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
-}
-// [END basic_write]
-
-/**
  * Cleanups the UI and removes all Firebase listeners.
  */
 function cleanupUi() {
@@ -347,53 +393,6 @@ function cleanupUi() {
   });
   listeningFirebaseRefs = [];
 }
-
-// Bindings on load.
-console.log('Bindings on load')
-window.addEventListener('load', function() {
-  // Bind Sign in button.
-  signInButton.addEventListener('click', function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    console.log(provider);
-    firebase.auth().signInWithPopup(provider);
-  });
-
-  // Bind Sign out button.
-  signOutButton.addEventListener('click', function() {
-    firebase.auth().signOut();
-  });
-
-  // Listen for auth state changes
-  firebase.auth().onAuthStateChanged(onAuthStateChanged);
-
-  // // Saves message on form submit.
-  // messageForm.onsubmit = function(e) {
-  //   e.preventDefault();
-  //   var text = messageInput.value;
-  //   var title = titleInput.value;
-  //   if (text && title) {
-  //     newPostForCurrentUser(title, text).then(function() {
-  //       previsionMenuButton.click();
-  //     });
-  //     messageInput.value = '';
-  //     titleInput.value = '';
-  //   }
-  // };
-
-  // Bind menu buttons.
-  homeMenuButton.onclick = function() {
-    showSection(homeSection, homeMenuButton);
-  };
-  previsionMenuButton.onclick = function() {
-    showSection(previsionSection, previsionMenuButton);
-  };
-  settingsMenuButton.onclick = function() {
-    showSection(settingsSection, settingsMenuButton);
-  };
-
-  homeMenuButton.onclick();
-}, false);
-
 
 /**
  * Displays the given section element and changes styling of the given button.
@@ -439,6 +438,9 @@ function onAuthStateChanged(user) {
   if (user && currentUID === user.uid) {
     return;
   }
+
+  myUserId = firebase.auth().currentUser.uid;
+  console.log('Userid:' + myUserId + 'DisplayName:' + firebase.auth().currentUser.displayName);
 
   cleanupUi();
   if (user) {
