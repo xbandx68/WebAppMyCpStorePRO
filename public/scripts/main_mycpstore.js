@@ -26,6 +26,9 @@ var messageForm = document.getElementById('message-form');
 var messageInput = document.getElementById('new-post-message');
 var titleInput = document.getElementById('new-post-title');
 var signInButton = document.getElementById('sign-in-button');
+var signInGeneralButton = document.getElementById('classic-sign-in-form');
+var emailInput = document.getElementById('email-input');
+var passwordInput = document.getElementById('password-input');
 var signOutButton = document.getElementById('sign-out-button');
 var splashPage = document.getElementById('page-splash');
 
@@ -57,11 +60,13 @@ window.addEventListener('load', function() {
 
   // Bind Sign general email button.
   signInGeneralButton.addEventListener('click', function() {
-    var email = document.querySelector("#email").value;
-    var password = document.querySelector("#password").value;
+    var email = emailInput.value;
+    var password = passwordInput.value;
+    console.log('Email:' + email + ' Password:' + password);
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(function(firebaseUser) {
         // Success
+        console.log('Firebase Login Success!');
     })
     .catch(function(error) {
     // Handle Errors here.
@@ -72,7 +77,7 @@ window.addEventListener('load', function() {
         } else {
           alert(errorMessage);
         }
-        console.log(error);
+        console.log('Firebase Login Error!:' + error);
     });
   });
 
