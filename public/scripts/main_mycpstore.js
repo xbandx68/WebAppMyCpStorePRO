@@ -59,7 +59,7 @@ window.addEventListener('load', function() {
   });
 
   // Bind Sign general email button.
-  signInGeneralButton.addEventListener('click', function() {
+  signInGeneralButton.onsubmit = function(e) {
     var email = emailInput.value;
     var password = passwordInput.value;
     console.log('Email:' + email + ' Password:' + password);
@@ -79,7 +79,8 @@ window.addEventListener('load', function() {
         }
         console.log('Firebase Login Error!:' + error);
     });
-  });
+  };
+  
 
   // Bind Sign out button.
   signOutButton.addEventListener('click', function() {
