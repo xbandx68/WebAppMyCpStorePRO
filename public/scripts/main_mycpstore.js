@@ -80,7 +80,7 @@ window.addEventListener('load', function() {
         console.log('Firebase Login Error!:' + error);
     });
   };
-  
+
 
   // Bind Sign out button.
   signOutButton.addEventListener('click', function() {
@@ -315,22 +315,22 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
 
   // Listen for likes counts.
   // [START post_value_event_listener]
-  var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
-  starCountRef.on('value', function(snapshot) {
-    updateStarCount(postElement, snapshot.val());
-  });
+//  var starCountRef = firebase.database().ref('posts/' + postId + '/starCount');
+//  starCountRef.on('value', function(snapshot) {
+//    updateStarCount(postElement, snapshot.val());
+//  });
   // [END post_value_event_listener]
 
   // Listen for the starred status.
-  var starredStatusRef = firebase.database().ref('posts/' + postId + '/stars/' + uid);
-  starredStatusRef.on('value', function(snapshot) {
-    updateStarredByCurrentUser(postElement, snapshot.val());
-  });
+//  var starredStatusRef = firebase.database().ref('posts/' + postId + '/stars/' + uid);
+//  starredStatusRef.on('value', function(snapshot) {
+//    updateStarredByCurrentUser(postElement, snapshot.val());
+//  });
 
   // Keep track of all Firebase reference on which we are listening.
   listeningFirebaseRefs.push(commentsRef);
-  listeningFirebaseRefs.push(starCountRef);
-  listeningFirebaseRefs.push(starredStatusRef);
+//  listeningFirebaseRefs.push(starCountRef);
+//  listeningFirebaseRefs.push(starredStatusRef);
 
   // Create new comment.
   addCommentForm.onsubmit = function(e) {
@@ -369,8 +369,8 @@ function createNewComment(postId, username, uid, text) {
 function startDatabaseQueries() {
   // [START my_top_posts_query]
   var myUserId = firebase.auth().currentUser.uid;
-  //console.log('start - startDatabaseQueries');
-  //console.log(myUserId);
+  console.log('start - startDatabaseQueries');
+  console.log('currentUser.uid:' + myUserId);
   var topUserPostsRef = firebase.database().ref('user-posts/' + myUserId).orderByChild('starCount');
   // [END my_top_posts_query]
   // [START recent_posts_query]
@@ -493,6 +493,7 @@ function onAuthStateChanged(user) {
     currentUID = user.uid;
     splashPage.style.display = 'none';
     writeUserData(user.uid, user.displayName, user.email, user.photoURL);
+    // fai la prima query per ricavare i dati
     startDatabaseQueries();
   } else {
     // No user is signed in.
