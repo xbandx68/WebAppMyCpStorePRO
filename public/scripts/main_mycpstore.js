@@ -78,7 +78,13 @@ window.addEventListener('load', function() {
 
   // Bind Sign out button.
   signOutButton.addEventListener('click', function() {
-    firebase.auth().signOut();
+    firebase.auth().signOut().then(function() {
+        // Sign-out successful.
+        console.log('User Logged Out!');
+      }).catch(function(error) {
+        // An error happened.
+        console.log(error);
+      });
   });
 
   // Listen for auth state changes
@@ -468,6 +474,9 @@ function onAuthStateChanged(user) {
   var photoURL = user.photoURL;
   var isAnonymous = user.isAnonymous;
   var uid = user.uid;
+  // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, if
+  // you have one. Use User.getToken() instead.
   var providerData = user.providerData;
 
   //myUserId = firebase.auth().currentUser.uid;
@@ -480,6 +489,7 @@ function onAuthStateChanged(user) {
     writeUserData(user.uid, user.displayName, user.email, user.photoURL);
     startDatabaseQueries();
   } else {
+    // No user is signed in.
     // Set currentUID to null.
     currentUID = null;
     // Display the splash page where you can sign-in.

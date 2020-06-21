@@ -12,6 +12,7 @@
   limitations under the License
 -->
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,114 +46,136 @@
   <link rel="stylesheet" href="main.css">
 
 </head>
+
 <body>
-<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
+  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
 
-  <!-- Splash screen -->
-  <section id="page-splash">
-    <h3 class="logo">Database MyCpStore</h3>
-    <div>
-      <button id="sign-in-button" class="mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons">account_circle</i> Sign in with Google</button>
-    </div>
-      <div class="card-body">
-				<form>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
-						</div>
-						<input type="text" class="form-control" placeholder="username">
-
-					</div>
-					<div class="input-group form-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-key"></i></span>
-						</div>
-						<input type="password" class="form-control" placeholder="password">
-					</div>
-					<div class="row align-items-center remember">
-						<input type="checkbox">Remember Me
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Login" class="btn float-right login_btn">
-					</div>
-				</form>
-			</div>
-  </section>
-
-  <!-- Header section containing logo and menu -->
-  <header class="header mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
-
-    <div class="mdl-layout__header-row titlebar">
+    <!-- Splash screen -->
+    <section id="page-splash">
       <h3 class="logo">Database MyCpStore</h3>
-      <button id="sign-out-button" class="mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons">account_circle</i> Sign out</button>
-    </div>
-
-    <!-- Navigation Bar -->
-    <div class="tab mdl-layout__header-row mdl-color--light-blue-600">
-      <div class="mdl-tab">
-        <div id="menu-home" class="mdl-layout__tab is-active mdl-button mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">home</i> Home
-        </div>
-        <div id="menu-prevision" class="mdl-layout__tab mdl-button mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">trending_up</i> Prevision
-        </div>
-        <div id="menu-settings" class="mdl-layout__tab mdl-button mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">settings</i> Settings
-        </div>
-
+      <div>
+        <button id="sign-in-button" class="mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons">account_circle</i> Sign in with Google</button>
       </div>
-    </div>
-  </header>
+      <div class="d-flex justify-content-center h-100">
+        <div class="card">
+          <div class="card-header">
+            <h3>Sign In</h3>
+            <div class="d-flex justify-content-end social_icon">
+              <span><i class="fab fa-facebook-square"></i></span>
+              <span><i class="fab fa-google-plus-square"></i></span>
+              <span><i class="fab fa-twitter-square"></i></span>
+            </div>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" placeholder="username">
 
-  <main class="mdl-layout__content mdl-color--grey-100">
-
-    <!-- Show a list of recent posts -->
-    <section class="mdl-grid content" id="home-list" style="display:none">
-      <div class="posts-container mdl-cell mdl-cell--12-col mdl-grid">
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-key"></i></span>
+                </div>
+                <input type="password" class="form-control" placeholder="password">
+              </div>
+              <div class="row align-items-center remember">
+                <input type="checkbox">Remember Me
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Login" class="btn float-right login_btn">
+              </div>
+            </form>
+          </div>
+          <div class="card-footer">
+            <div class="d-flex justify-content-center links">
+              Don't have an account?<a href="#">Sign Up</a>
+            </div>
+            <div class="d-flex justify-content-center">
+              <a href="#">Forgot your password?</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Show the list of user's posts -->
-    <section class="mdl-grid content" id="prevision-list" style="display:none">
-      <div class="posts-container mdl-cell mdl-cell--12-col mdl-grid">
+    <!-- Header section containing logo and menu -->
+    <header class="header mdl-layout__header mdl-color-text--white mdl-color--light-blue-700">
+
+      <div class="mdl-layout__header-row titlebar">
+        <h3 class="logo">Database MyCpStore</h3>
+        <button id="sign-out-button" class="mdl-button--raised mdl-button mdl-js-button mdl-js-ripple-effect"><i class="material-icons">account_circle</i> Sign out</button>
       </div>
-    </section>
 
-    <!-- Show the list of top user's posts -->
-    <section class="mdl-grid content" id="settings-list" style="display:none">
-      <div class="posts-container mdl-cell mdl-cell--12-col mdl-grid">
-
-        <form id="message-form" action="#">
-          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input class="mdl-textfield__input" type="text" id="new-post-title">
-            <label class="mdl-textfield__label" for="new-post-title">ID Terminale</label>
+      <!-- Navigation Bar -->
+      <div class="tab mdl-layout__header-row mdl-color--light-blue-600">
+        <div class="mdl-tab">
+          <div id="menu-home" class="mdl-layout__tab is-active mdl-button mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">home</i> Home
+          </div>
+          <div id="menu-prevision" class="mdl-layout__tab mdl-button mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">trending_up</i> Prevision
+          </div>
+          <div id="menu-settings" class="mdl-layout__tab mdl-button mdl-js-button mdl-js-ripple-effect">
+            <i class="material-icons">settings</i> Settings
           </div>
 
-          <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-            Salva
-          </button>
-        </form>
-
+        </div>
       </div>
-    </section>
-  </main>
-</div>
+    </header>
 
-<!-- Import and configure the Firebase SDK -->
-<!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-<!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+    <main class="mdl-layout__content mdl-color--grey-100">
 
-<!-- The core Firebase JS SDK is always required and must be listed first -->
-<script src="/__/firebase/7.15.3/firebase-app.js"></script>
-<script src="/__/firebase/7.15.3/firebase-auth.js"></script>
-<script src="/__/firebase/7.15.3/firebase-database.js"></script>
-<!-- TODO: Add SDKs for Firebase products that you want to use
+      <!-- Show a list of recent posts -->
+      <section class="mdl-grid content" id="home-list" style="display:none">
+        <div class="posts-container mdl-cell mdl-cell--12-col mdl-grid">
+        </div>
+      </section>
+
+      <!-- Show the list of user's posts -->
+      <section class="mdl-grid content" id="prevision-list" style="display:none">
+        <div class="posts-container mdl-cell mdl-cell--12-col mdl-grid">
+        </div>
+      </section>
+
+      <!-- Show the list of top user's posts -->
+      <section class="mdl-grid content" id="settings-list" style="display:none">
+        <div class="posts-container mdl-cell mdl-cell--12-col mdl-grid">
+
+          <form id="message-form" action="#">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="new-post-title">
+              <label class="mdl-textfield__label" for="new-post-title">ID Terminale</label>
+            </div>
+
+            <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Salva
+            </button>
+          </form>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Import and configure the Firebase SDK -->
+  <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
+  <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="/__/firebase/7.15.3/firebase-app.js"></script>
+  <script src="/__/firebase/7.15.3/firebase-auth.js"></script>
+  <script src="/__/firebase/7.15.3/firebase-database.js"></script>
+  <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
-<script src="/__/firebase/7.15.3/firebase-analytics.js"></script>
-<!-- Initialize Firebase -->
-<script src="/__/firebase/init.js"></script>
+  <script src="/__/firebase/7.15.3/firebase-analytics.js"></script>
+  <!-- Initialize Firebase -->
+  <script src="/__/firebase/init.js"></script>
 
-<script src="scripts/main_mycpstore.js"></script>
+  <script src="scripts/main_mycpstore.js"></script>
 </body>
+
 </html>
