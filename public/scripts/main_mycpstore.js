@@ -45,7 +45,75 @@ var listeningFirebaseRefs = [];
 var currentUID;
 var myUserId;
 
-//startDatabaseQueries();
+// Bindings on load.
+console.log('Bindings on load')
+window.addEventListener('load', function() {
+  // Bind Sign in button.
+  signInButton.addEventListener('click', function() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    console.log(provider);
+    firebase.auth().signInWithPopup(provider);
+  });
+
+  // Bind Sign general email button.
+  signInGeneralButton.addEventListener('click', function() {
+    var email = document.querySelector("#email").value;
+    var password = document.querySelector("#password").value;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(function(firebaseUser) {
+        // Success
+    })
+    .catch(function(error) {
+    // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+          alert('Wrong password.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+    });
+  });
+
+  // Bind Sign out button.
+  signOutButton.addEventListener('click', function() {
+    firebase.auth().signOut();
+  });
+
+  // Listen for auth state changes
+  firebase.auth().onAuthStateChanged(onAuthStateChanged);
+
+  // // Saves message on form submit.
+  // messageForm.onsubmit = function(e) {
+  //   e.preventDefault();
+  //   var text = messageInput.value;
+  //   var title = titleInput.value;
+  //   if (text && title) {
+  //     newPostForCurrentUser(title, text).then(function() {
+  //       previsionMenuButton.click();
+  //     });
+  //     messageInput.value = '';
+  //     titleInput.value = '';
+  //   }
+  // };
+
+  // Bind menu buttons.
+  homeMenuButton.onclick = function() {
+    showSection(homeSection, homeMenuButton);
+  };
+  previsionMenuButton.onclick = function() {
+    showSection(previsionSection, previsionMenuButton);
+  };
+  settingsMenuButton.onclick = function() {
+    showSection(settingsSection, settingsMenuButton);
+  };
+
+  homeMenuButton.onclick();
+}, false);
+
+
+
 /**
  * Saves a new post to the Firebase DB.
  */
@@ -152,52 +220,6 @@ var myUserId;
 //   var comment = postElement.getElementsByClassName('comment-' + id)[0];
 //   comment.parentElement.removeChild(comment);
 // }
-// Bindings on load.
-console.log('Bindings on load')
-window.addEventListener('load', function() {
-  // Bind Sign in button.
-  signInButton.addEventListener('click', function() {
-    var provider = new firebase.auth.GoogleAuthProvider();
-    console.log(provider);
-    firebase.auth().signInWithPopup(provider);
-  });
-
-  // Bind Sign out button.
-  signOutButton.addEventListener('click', function() {
-    firebase.auth().signOut();
-  });
-
-  // Listen for auth state changes
-  firebase.auth().onAuthStateChanged(onAuthStateChanged);
-
-  // // Saves message on form submit.
-  // messageForm.onsubmit = function(e) {
-  //   e.preventDefault();
-  //   var text = messageInput.value;
-  //   var title = titleInput.value;
-  //   if (text && title) {
-  //     newPostForCurrentUser(title, text).then(function() {
-  //       previsionMenuButton.click();
-  //     });
-  //     messageInput.value = '';
-  //     titleInput.value = '';
-  //   }
-  // };
-
-  // Bind menu buttons.
-  homeMenuButton.onclick = function() {
-    showSection(homeSection, homeMenuButton);
-  };
-  previsionMenuButton.onclick = function() {
-    showSection(previsionSection, previsionMenuButton);
-  };
-  settingsMenuButton.onclick = function() {
-    showSection(settingsSection, settingsMenuButton);
-  };
-
-  homeMenuButton.onclick();
-}, false);
-
 
 /**
  * Writes the user's data to the database.
@@ -439,8 +461,17 @@ function onAuthStateChanged(user) {
     return;
   }
 
-  myUserId = firebase.auth().currentUser.uid;
-  console.log('Userid:' + myUserId + 'DisplayName:' + firebase.auth().currentUser.displayName);
+  // User is signed in.
+  var displayName = user.displayName;
+  var email = user.email;
+  var emailVerified = user.emailVerified;
+  var photoURL = user.photoURL;
+  var isAnonymous = user.isAnonymous;
+  var uid = user.uid;
+  var providerData = user.providerData;
+
+  //myUserId = firebase.auth().currentUser.uid;
+  console.log('Userid: ' + uid + ' DisplayName:' + displayName + " Email:" + email);
 
   cleanupUi();
   if (user) {
