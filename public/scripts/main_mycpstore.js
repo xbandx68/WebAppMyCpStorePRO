@@ -215,7 +215,7 @@ function startDatabaseQueries() {
      postsRef.on('value', function(snapshot) {
        postsData = snapshot.val();
        console.log(postsData);
-
+       console.log( Object.keys(postsData));
        var ArrDb[];
        ArrDb = snapshotToArray(snapshot);
        console.log(ArrDb);
