@@ -255,7 +255,7 @@ function createPostElement(postId, title, text, authorId, authorPic) {
               ' title:' + title +
               ' text:' + text +
               ' authorId:' + authorId +
-              ' authorPic:' + authorPic +
+              ' authorPic:' + authorPic
             );
 
   var html =
