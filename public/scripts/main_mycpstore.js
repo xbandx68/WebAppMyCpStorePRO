@@ -380,6 +380,7 @@ function startDatabaseQueries() {
   // [END recent_posts_query]
   // var userPostsRef = firebase.database().ref('user-posts/' + myUserId);
   //
+  var postsData;
    var fetchPosts = function(postsRef, sectionElement) {
      postsRef.on('value', function(data) {
        postsData = data.val();
