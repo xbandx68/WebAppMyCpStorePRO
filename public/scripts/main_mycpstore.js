@@ -404,7 +404,7 @@ function startDatabaseQueries() {
   //     var post = containerElement.getElementsByClassName('post-' + data.key)[0];
   //     post.parentElement.removeChild(post);
   //   });
-  // };
+   };
 
   // Fetching and displaying all posts of each sections.
   //fetchPosts(topUserPostsRef, settingsSection);
