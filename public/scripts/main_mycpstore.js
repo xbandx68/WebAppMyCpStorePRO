@@ -372,7 +372,7 @@ function startDatabaseQueries() {
   console.log('start - startDatabaseQueries');
   console.log('currentUser.uid:' + myUserId);
   var recentPostsRef = firebase.database().ref(myUserId).orderByChild('ShopAndy_40258bc19581191e');
-  console.log('recentPostsRef:' + myUserId);
+  console.log('recentPostsRef:' + recentPostsRef);
   // [END my_top_posts_query]
   // [START recent_posts_query]
   //var recentPostsRef = firebase.database().ref('posts').limitToLast(100);
