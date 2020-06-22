@@ -373,20 +373,24 @@ function startDatabaseQueries() {
   console.log('currentUser.uid:' + myUserId);
   var listShop = firebase.database().ref(myUserId).limitToLast(100);
   console.log('listShop:' + listShop);
+  //console.log(JSON.stringify(payload))
   // [END my_top_posts_query]
   // [START recent_posts_query]
   //var recentPostsRef = firebase.database().ref('posts').limitToLast(100);
   // [END recent_posts_query]
   // var userPostsRef = firebase.database().ref('user-posts/' + myUserId);
   //
-  // var fetchPosts = function(postsRef, sectionElement) {
-  //   postsRef.on('child_added', function(data) {
-  //     var author = data.val().author || 'Anonymous';
-  //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-  //     containerElement.insertBefore(
-  //       createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
-  //       containerElement.firstChild);
-  //   });
+   var fetchPosts = function(postsRef, sectionElement) {
+     postsRef.on('value', function(data) {
+       postsData = data.val();
+       console.log(postsData);
+       console.log(JSON.stringify(data));
+       //var author = data.val().author || 'Anonymous';
+      //var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+      //containerElement.insertBefore(
+      //  createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
+      //  containerElement.firstChild);
+    });
   //   postsRef.on('child_changed', function(data) {
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
   //     var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
