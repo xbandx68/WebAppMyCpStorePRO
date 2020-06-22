@@ -403,12 +403,12 @@ function startDatabaseQueries() {
   };
 
   // Fetching and displaying all posts of each sections.
-  fetchPosts(topUserPostsRef, settingsSection);
+  //fetchPosts(topUserPostsRef, settingsSection);
   fetchPosts(recentPostsRef, homeSection);
   fetchPosts(userPostsRef, previsionSection);
 
   // Keep track of all Firebase refs we are listening to.
-  listeningFirebaseRefs.push(topUserPostsRef);
+  //listeningFirebaseRefs.push(topUserPostsRef);
   listeningFirebaseRefs.push(recentPostsRef);
   listeningFirebaseRefs.push(userPostsRef);
 }
