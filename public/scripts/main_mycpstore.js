@@ -371,46 +371,46 @@ function startDatabaseQueries() {
   var myUserId = firebase.auth().currentUser.uid;
   console.log('start - startDatabaseQueries');
   console.log('currentUser.uid:' + myUserId);
-  var recentPostsRef = firebase.database().ref(myUserId).orderByChild('ShopAndy_40258bc19581191e');
-  console.log('recentPostsRef:' + recentPostsRef);
+  var listShop = firebase.database().ref(myUserId).limitToLast(100);
+  console.log('listShop:' + listShop);
   // [END my_top_posts_query]
   // [START recent_posts_query]
   //var recentPostsRef = firebase.database().ref('posts').limitToLast(100);
   // [END recent_posts_query]
-  var userPostsRef = firebase.database().ref('user-posts/' + myUserId);
-
-  var fetchPosts = function(postsRef, sectionElement) {
-    postsRef.on('child_added', function(data) {
-      var author = data.val().author || 'Anonymous';
-      var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-      containerElement.insertBefore(
-        createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
-        containerElement.firstChild);
-    });
-    postsRef.on('child_changed', function(data) {
-      var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-      var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
-      postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = data.val().title;
-      postElement.getElementsByClassName('username')[0].innerText = data.val().author;
-      postElement.getElementsByClassName('text')[0].innerText = data.val().body;
-      postElement.getElementsByClassName('star-count')[0].innerText = data.val().starCount;
-    });
-    postsRef.on('child_removed', function(data) {
-      var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-      var post = containerElement.getElementsByClassName('post-' + data.key)[0];
-      post.parentElement.removeChild(post);
-    });
-  };
+  // var userPostsRef = firebase.database().ref('user-posts/' + myUserId);
+  //
+  // var fetchPosts = function(postsRef, sectionElement) {
+  //   postsRef.on('child_added', function(data) {
+  //     var author = data.val().author || 'Anonymous';
+  //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+  //     containerElement.insertBefore(
+  //       createPostElement(data.key, data.val().title, data.val().body, author, data.val().uid, data.val().authorPic),
+  //       containerElement.firstChild);
+  //   });
+  //   postsRef.on('child_changed', function(data) {
+  //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+  //     var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
+  //     postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = data.val().title;
+  //     postElement.getElementsByClassName('username')[0].innerText = data.val().author;
+  //     postElement.getElementsByClassName('text')[0].innerText = data.val().body;
+  //     postElement.getElementsByClassName('star-count')[0].innerText = data.val().starCount;
+  //   });
+  //   postsRef.on('child_removed', function(data) {
+  //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+  //     var post = containerElement.getElementsByClassName('post-' + data.key)[0];
+  //     post.parentElement.removeChild(post);
+  //   });
+  // };
 
   // Fetching and displaying all posts of each sections.
   //fetchPosts(topUserPostsRef, settingsSection);
-  fetchPosts(recentPostsRef, homeSection);
-  fetchPosts(userPostsRef, previsionSection);
+  fetchPosts(listShop, homeSection);
+  //fetchPosts(userPostsRef, previsionSection);
 
   // Keep track of all Firebase refs we are listening to.
   //listeningFirebaseRefs.push(topUserPostsRef);
-  listeningFirebaseRefs.push(recentPostsRef);
-  listeningFirebaseRefs.push(userPostsRef);
+  listeningFirebaseRefs.push(listShop);
+//listeningFirebaseRefs.push(userPostsRef);
 }
 
 /**
