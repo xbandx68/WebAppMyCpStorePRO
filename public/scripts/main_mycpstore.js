@@ -215,10 +215,15 @@ function startDatabaseQueries() {
      postsRef.on('value', function(snapshot) {
        postsData = snapshot.val();
        console.log(postsData);
+
+       var ArrDb[] = snapshotToArray(snapshot);
+       console.log(ArrDb);
+       console.log(JSON.stringify(ArrDb));
        console.log('snapshotToArray: ' + snapshotToArray(snapshot));
-       for (var i = 0, len = postsData.length; i < len; i++) {
-         display.innerHTML = postsData[i].title;
-         console.log('sigle data of:' + i + ' dato=' + postsData[i].title);
+
+       for (var i = 0, len = ArrDb.length; i < len; i++) {
+         //display.innerHTML = ArrDb[i].;
+         console.log('sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + ArrDb[i].val);
        }
 
        console.log(JSON.stringify(data));
