@@ -215,12 +215,23 @@ function startDatabaseQueries() {
      postsRef.on('value', function(data) {
        postsData = data.val();
        console.log(postsData);
+       for (var i = 0, len = postsData.length; i < len; i++) {
+         display.innerHTML = postsData[i].title;
+         console.log('sigle data of:' + i + ' dato=' + postsData[i].title);
+       }
+
        console.log(JSON.stringify(data));
        //var author = data.val().author || 'Anonymous';
        var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
       containerElement.insertBefore(
         createPostElement(data.key, data.val().title, data.val().body, data.val().uid, data.val().authorPic), containerElement.firstChild);
     });
+
+
+    for (var i = 0, len = exercises.length; i < len; i++) {
+        display.innerHTML = exercises[i].title;
+      }
+
   //   postsRef.on('child_changed', function(data) {
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
   //     var postElement = containerElement.getElementsByClassName('post-' + data.key)[0];
