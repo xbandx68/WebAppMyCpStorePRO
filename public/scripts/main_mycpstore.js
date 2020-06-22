@@ -212,9 +212,10 @@ function startDatabaseQueries() {
   //
   var postsData;
    var fetchPosts = function(postsRef, sectionElement) {
-     postsRef.on('value', function(data) {
-       postsData = data.val();
+     postsRef.on('value', function(snapshot) {
+       postsData = snapshot.val();
        console.log(postsData);
+       console.log('snapshotToArray: ' + snapshotToArray(snapshot));
        for (var i = 0, len = postsData.length; i < len; i++) {
          display.innerHTML = postsData[i].title;
          console.log('sigle data of:' + i + ' dato=' + postsData[i].title);
@@ -257,6 +258,19 @@ function startDatabaseQueries() {
   listeningFirebaseRefs.push(listShop);
 //listeningFirebaseRefs.push(userPostsRef);
 }
+
+function snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+
+        returnArr.push(item);
+    });
+
+    return returnArr;
+};
 
 // [END basic_write]
 function createPostElement(postId, title, text, authorId, authorPic) {
