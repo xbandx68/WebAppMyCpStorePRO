@@ -299,18 +299,18 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
 
   // Listen for comments.
   // [START child_event_listener_recycler]
-  var commentsRef = firebase.database().ref('post-comments/' + postId);
-  commentsRef.on('child_added', function(data) {
-    addCommentElement(postElement, data.key, data.val().text, data.val().author);
-  });
-
-  commentsRef.on('child_changed', function(data) {
-    setCommentValues(postElement, data.key, data.val().text, data.val().author);
-  });
-
-  commentsRef.on('child_removed', function(data) {
-    deleteComment(postElement, data.key);
-  });
+  // var commentsRef = firebase.database().ref('post-comments/' + postId);
+  // commentsRef.on('child_added', function(data) {
+  //   addCommentElement(postElement, data.key, data.val().text, data.val().author);
+  // });
+  //
+  // commentsRef.on('child_changed', function(data) {
+  //   setCommentValues(postElement, data.key, data.val().text, data.val().author);
+  // });
+  //
+  // commentsRef.on('child_removed', function(data) {
+  //   deleteComment(postElement, data.key);
+  // });
   // [END child_event_listener_recycler]
 
   // Listen for likes counts.
@@ -328,17 +328,17 @@ function createPostElement(postId, title, text, author, authorId, authorPic) {
 //  });
 
   // Keep track of all Firebase reference on which we are listening.
-  listeningFirebaseRefs.push(commentsRef);
+//  listeningFirebaseRefs.push(commentsRef);
 //  listeningFirebaseRefs.push(starCountRef);
 //  listeningFirebaseRefs.push(starredStatusRef);
 
   // Create new comment.
-  addCommentForm.onsubmit = function(e) {
-    e.preventDefault();
-    createNewComment(postId, firebase.auth().currentUser.displayName, uid, commentInput.value);
-    commentInput.value = '';
-    commentInput.parentElement.MaterialTextfield.boundUpdateClassesHandler();
-  };
+  // addCommentForm.onsubmit = function(e) {
+  //   e.preventDefault();
+  //   createNewComment(postId, firebase.auth().currentUser.displayName, uid, commentInput.value);
+  //   commentInput.value = '';
+  //   commentInput.parentElement.MaterialTextfield.boundUpdateClassesHandler();
+  // };
 
   // Bind starring action.
   // var onStarClicked = function() {
