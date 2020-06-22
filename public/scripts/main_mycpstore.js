@@ -478,7 +478,7 @@ function onAuthStateChanged(user) {
   if (user && currentUID === user.uid) {
     return;
   }
-
+  console.log('user: ' + user);
   // User is signed in.
   var displayName = user.displayName;
   var email = user.email;
