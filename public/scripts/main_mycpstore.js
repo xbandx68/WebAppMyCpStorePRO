@@ -240,8 +240,9 @@ function startDatabaseQueries() {
 
        var obj = JSON.parse(snapshot);
        console.log('A obj.tb_cp:' + obj.tb_cp);
-       console.log('B obj.tb_cp.0:' + obj.tb_cp.0);
-       console.log('C obj.tb_cp.0.name:' + obj.tb_cp.0.name);
+       console.log('B obj.tb_cp.0:' + obj.tb_cp[0].0);
+       console.log('C obj.tb_cp.0.name:' + obj.tb_cp[0].0.name);
+       console.log('C obj.tb_cp.0.name:' + obj.tb_cp[0].0.id);
   //     console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
        //var author = data.val().author || 'Anonymous';
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
