@@ -237,12 +237,17 @@ function startDatabaseQueries() {
          }
        }
 
-       console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
+
+       var obj = JSON.parse(snapshot);
+       console.log('A obj.tb_cp:' + obj.tb_cp);
+       console.log('B obj.tb_cp.0:' + obj.tb_cp.0);
+       console.log('C obj.tb_cp.0.name:' + obj.tb_cp.0.name);
+  //     console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
        //var author = data.val().author || 'Anonymous';
-       var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-      containerElement.insertBefore(
-        createPostElement(snapshot.key, snapshot.val().title, snapshot.val().body, snapshot.val().uid, snapshot.val().authorPic), containerElement.firstChild);
-    });
+  //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
+  //    containerElement.insertBefore(
+  //      createPostElement(snapshot.key, snapshot.val().title, snapshot.val().body, snapshot.val().uid, snapshot.val().authorPic), containerElement.firstChild);
+  //  });
 
   //   postsRef.on('child_changed', function(data) {
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
