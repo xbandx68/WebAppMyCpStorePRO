@@ -215,12 +215,14 @@ function startDatabaseQueries() {
      postsRef.on('value', function(snapshot) {
        postsData = snapshot.val();
        console.log(postsData);
-       console.log( Object.keys(postsData));
-       var ArrDb = [];
-       ArrDb = snapshotToArray(snapshot);
-       console.log('Array ArrDb:' + ArrDb);
-       console.log('JSON.stringify ArrDb:' + JSON.stringify(ArrDb));
-       console.log('snapshotToArray: ' + snapshotToArray(snapshot));
+       console.log( 'Object.keys' + Object.keys(postsData));
+       var obj = JSON.parse(snapshot);
+       console.log('A obj.tb_cp:' + obj.tb_cp);
+       //var ArrDb = [];
+       //ArrDb = snapshotToArray(snapshot);
+       //console.log('Array ArrDb:' + ArrDb);
+       //console.log('JSON.stringify ArrDb:' + JSON.stringify(ArrDb));
+       //console.log('snapshotToArray: ' + snapshotToArray(snapshot));
 
        // for (var i = 0, len = ArrDb.length; i < len; i++) {
        //   //display.innerHTML = ArrDb[i].;
@@ -238,8 +240,7 @@ function startDatabaseQueries() {
        // }
 
 
-       var obj = JSON.parse(snapshot);
-       console.log('A obj.tb_cp:' + obj.tb_cp);
+
        //console.log('B obj.tb_cp.0.name:' + obj.tb_cp[0].0.name);
        //console.log('C obj.tb_cp.0.name:' + obj.tb_cp[0].0.id);
   //     console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
