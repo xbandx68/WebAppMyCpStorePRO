@@ -228,12 +228,12 @@ function startDatabaseQueries() {
 
          var num_cp = ArrDb[i].tb_cp.length;
          for (var k = 0, lenk = num_cp; i < lenk; k++) {
-           console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k].value);
+           console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k]);
          }
 
          var num_prod = ArrDb[i].tb_product.length;
          for (var p = 0, lenp = num_prod; i < lenp; p++) {
-           console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p].value);
+           console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p]);
          }
        }
 
