@@ -226,10 +226,15 @@ function startDatabaseQueries() {
          //display.innerHTML = ArrDb[i].;
          console.log('1 sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + ArrDb[i].tb_cp);
 
-         for (var k = 0, lenk = ArrDb[i].tb_cp.length; i < lenk; k++) {
-           console.log('2 sigle data of:' + i + ' key=' + ArrDb[i].key[k].tb_cp);
+         var num_cp = ArrDb[i].tb_cp.length;
+         for (var k = 0, lenk = num_cp; i < lenk; k++) {
+           console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k].value);
          }
 
+         var num_prod = ArrDb[i].tb_product.length;
+         for (var p = 0, lenp = num_prod; i < lenp; p++) {
+           console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p].value);
+         }
        }
 
        console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
