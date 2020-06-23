@@ -222,20 +222,20 @@ function startDatabaseQueries() {
        console.log('JSON.stringify ArrDb:' + JSON.stringify(ArrDb));
        console.log('snapshotToArray: ' + snapshotToArray(snapshot));
 
-       for (var i = 0, len = ArrDb.length; i < len; i++) {
-         //display.innerHTML = ArrDb[i].;
-         console.log('1 sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + JSON.stringify(ArrDb[i].tb_cp));
-
-         var num_cp = ArrDb[i].tb_cp.length;
-         for (var k = 0, lenk = num_cp; k < lenk; k++) {
-           console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k].0.name);
-         }
-
-         var num_prod = ArrDb[i].tb_product.length;
-         for (var p = 0, lenp = num_prod; p < lenp; p++) {
-           console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p]);
-         }
-       }
+       // for (var i = 0, len = ArrDb.length; i < len; i++) {
+       //   //display.innerHTML = ArrDb[i].;
+       //   console.log('1 sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + JSON.stringify(ArrDb[i].tb_cp));
+       //
+       //   var num_cp = ArrDb[i].tb_cp.length;
+       //   for (var k = 0, lenk = num_cp; k < lenk; k++) {
+       //     console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k].0.name);
+       //   }
+       //
+       //   var num_prod = ArrDb[i].tb_product.length;
+       //   for (var p = 0, lenp = num_prod; p < lenp; p++) {
+       //     console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p]);
+       //   }
+       // }
 
 
        var obj = JSON.parse(snapshot);
