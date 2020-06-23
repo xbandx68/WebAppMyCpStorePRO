@@ -218,26 +218,26 @@ function startDatabaseQueries() {
        console.log( Object.keys(postsData));
        var ArrDb = [];
        ArrDb = snapshotToArray(snapshot);
-       console.log(ArrDb);
-       console.log(JSON.stringify(ArrDb));
+       console.log('Array ArrDb:' + ArrDb);
+       console.log('JSON.stringify ArrDb:' + JSON.stringify(ArrDb));
        console.log('snapshotToArray: ' + snapshotToArray(snapshot));
 
        for (var i = 0, len = ArrDb.length; i < len; i++) {
          //display.innerHTML = ArrDb[i].;
-         console.log('sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + ArrDb[i].val);
+         console.log('1 sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + ArrDb[i].tb_cp);
+
+         for (var k = 0, lenk = ArrDb[i].tb_cp.length; i < lenk; k++) {
+           console.log('2 sigle data of:' + i + ' key=' + ArrDb[i].key[k].tb_cp);
+         }
+
        }
 
-       console.log(JSON.stringify(data));
+       console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
        //var author = data.val().author || 'Anonymous';
        var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
       containerElement.insertBefore(
-        createPostElement(data.key, data.val().title, data.val().body, data.val().uid, data.val().authorPic), containerElement.firstChild);
+        createPostElement(snapshot.key, snapshot.val().title, snapshot.val().body, snapshot.val().uid, snapshot.val().authorPic), containerElement.firstChild);
     });
-
-
-    for (var i = 0, len = exercises.length; i < len; i++) {
-        display.innerHTML = exercises[i].title;
-      }
 
   //   postsRef.on('child_changed', function(data) {
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
