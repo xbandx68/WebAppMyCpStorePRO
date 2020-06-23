@@ -227,12 +227,12 @@ function startDatabaseQueries() {
          console.log('1 sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + ArrDb[i].tb_cp);
 
          var num_cp = ArrDb[i].tb_cp.length;
-         for (var k = 0, lenk = num_cp; i < lenk; k++) {
+         for (var k = 0, lenk = num_cp; k < lenk; k++) {
            console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k]);
          }
 
          var num_prod = ArrDb[i].tb_product.length;
-         for (var p = 0, lenp = num_prod; i < lenp; p++) {
+         for (var p = 0, lenp = num_prod; p < lenp; p++) {
            console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p]);
          }
        }
