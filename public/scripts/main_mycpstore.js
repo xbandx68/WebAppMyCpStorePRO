@@ -220,38 +220,8 @@ function startDatabaseQueries() {
        //postsData.ShopAndy_40258bc19581191e.tb_cp[0].id
 
        createHeaderElement();
-
-       //var ArrDb = [];
-       //ArrDb = snapshotToArray(snapshot);
-       //console.log('Array ArrDb:' + ArrDb);
-       //console.log('JSON.stringify ArrDb:' + JSON.stringify(ArrDb));
        console.log('postsData - id: ' + postsData.);
-
-       // for (var i = 0, len = ArrDb.length; i < len; i++) {
-       //   //display.innerHTML = ArrDb[i].;
-       //   console.log('1 sigle data of:' + i + ' key=' + ArrDb[i].key + ' dato=' + JSON.stringify(ArrDb[i].tb_cp));
-       //
-       //   var num_cp = ArrDb[i].tb_cp.length;
-       //   for (var k = 0, lenk = num_cp; k < lenk; k++) {
-       //     console.log('2 sigle data of:' + i + ' value=' + ArrDb[i].tb_cp[k].0.name);
-       //   }
-       //
-       //   var num_prod = ArrDb[i].tb_product.length;
-       //   for (var p = 0, lenp = num_prod; p < lenp; p++) {
-       //     console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p]);
-       //   }
-       // }
-       //console.log('B obj.tb_cp.0.name:' + obj.tb_cp[0].0.name);
-       //console.log('C obj.tb_cp.0.name:' + obj.tb_cp[0].0.id);
-  //     console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
-       //var author = data.val().author || 'Anonymous';
-  //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
-  //    containerElement.insertBefore(
-  //      createPostElement(snapshot.key, snapshot.val().title, snapshot.val().body, snapshot.val().uid, snapshot.val().authorPic), containerElement.firstChild);
-      var containerElement = sectionElement.getElementsByClassName('table-container')[0];
-      //containerElement.insertBefore(
-    //    createTdElement(),
-    //    containerElement.firstChild);
+       var containerElement = sectionElement.getElementsByClassName('table-container')[0];
     });
 
   //   postsRef.on('child_changed', function(data) {
@@ -266,8 +236,7 @@ function startDatabaseQueries() {
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
   //     var post = containerElement.getElementsByClassName('post-' + data.key)[0];
   //     post.parentElement.removeChild(post);
-  //   });
-   };
+     };
 
   // Fetching and displaying all posts of each sections.
   //fetchPosts(topUserPostsRef, settingsSection);
