@@ -215,14 +215,17 @@ function startDatabaseQueries() {
      postsRef.on('value', function(snapshot) {
        postsData = snapshot.val();
        console.log(postsData);
-       console.log( 'Object.keys' + Object.keys(postsData));
-       var obj = JSON.parse(snapshot);
-       console.log('A obj.tb_cp:' + obj.tb_cp);
+       var ArrDb = [];
+       ArrDb = snapshotToArray(snapshot);
+       //postsData.ShopAndy_40258bc19581191e.tb_cp[0].id
+
+       createHeaderElement();
+
        //var ArrDb = [];
        //ArrDb = snapshotToArray(snapshot);
        //console.log('Array ArrDb:' + ArrDb);
        //console.log('JSON.stringify ArrDb:' + JSON.stringify(ArrDb));
-       //console.log('snapshotToArray: ' + snapshotToArray(snapshot));
+       console.log('postsData - id: ' + postsData.);
 
        // for (var i = 0, len = ArrDb.length; i < len; i++) {
        //   //display.innerHTML = ArrDb[i].;
@@ -238,9 +241,6 @@ function startDatabaseQueries() {
        //     console.log('3 sigle data of:' + i + ' value=' + ArrDb[i].tb_product[p]);
        //   }
        // }
-
-
-
        //console.log('B obj.tb_cp.0.name:' + obj.tb_cp[0].0.name);
        //console.log('C obj.tb_cp.0.name:' + obj.tb_cp[0].0.id);
   //     console.log('JSON.stringify snapshot:' + JSON.stringify(snapshot));
@@ -248,6 +248,10 @@ function startDatabaseQueries() {
   //     var containerElement = sectionElement.getElementsByClassName('posts-container')[0];
   //    containerElement.insertBefore(
   //      createPostElement(snapshot.key, snapshot.val().title, snapshot.val().body, snapshot.val().uid, snapshot.val().authorPic), containerElement.firstChild);
+      var containerElement = sectionElement.getElementsByClassName('table-container')[0];
+      //containerElement.insertBefore(
+    //    createTdElement(),
+    //    containerElement.firstChild);
     });
 
   //   postsRef.on('child_changed', function(data) {
@@ -289,16 +293,8 @@ function snapshotToArray(snapshot) {
     return returnArr;
 };
 
-// [END basic_write]
-function createPostElement(postId, title, text, authorId, authorPic) {
-  var uid = firebase.auth().currentUser.uid;
-  console.log('Userid: ' + uid +
-              ' postId:' + postId +
-              ' title:' + title +
-              ' text:' + text +
-              ' authorId:' + authorId +
-              ' authorPic:' + authorPic
-            );
+
+function createHeaderElement() {
 
   var html =
     '<table class="table table-hover">'+
@@ -308,7 +304,26 @@ function createPostElement(postId, title, text, authorId, authorPic) {
             '<th scope="col">Prodotto</th>'+
             '<th scope="col">Quantità</th>'+
         '</tr>'+
-      '</thead>'+
+      '</thead>';
+
+  // Create the DOM element from the HTML.
+  var div = document.createElement('div');
+  div.innerHTML = html;
+  var postElement = div.firstChild;
+  if (componentHandler) {
+    componentHandler.upgradeElements(postElement.getElementsByClassName('mdl-textfield')[0]);
+  }
+
+  return postElement;
+}
+
+
+
+// [END basic_write]
+function createTableElement(postId, title, text, authorId, authorPic) {
+  var uid = firebase.auth().currentUser.uid;
+
+  var html =
       '<tbody>'+
         '<tr>'+
           '<th class="shop_name" scope="row">1</th>'+
@@ -317,34 +332,6 @@ function createPostElement(postId, title, text, authorId, authorPic) {
           '</tr>'+
       '</tbody>'+
     '</table>';
-
-      // '<div class="post post-' + postId + ' mdl-cell mdl-cell--12-col ' +
-      //             'mdl-cell--6-col-tablet mdl-cell--4-col-desktop mdl-grid mdl-grid--no-spacing">' +
-      //   '<div class="mdl-card mdl-shadow--2dp">' +
-      //     '<div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">' +
-      //       '<h4 class="mdl-card__title-text"></h4>' +
-      //     '</div>' +
-      //     '<div class="header">' +
-      //       '<div>' +
-      //         '<div class="avatar"></div>' +
-      //         '<div class="username mdl-color-text--black"></div>' +
-      //       '</div>' +
-      //     '</div>' +
-      //     '<span class="star">' +
-      //       '<div class="not-starred material-icons">star_border</div>' +
-      //       '<div class="starred material-icons">star</div>' +
-      //       '<div class="star-count">0</div>' +
-      //     '</span>' +
-      //     '<div class="text"></div>' +
-      //     '<div class="comments-container"></div>' +
-      //     '<form class="add-comment" action="#">' +
-      //       '<div class="mdl-textfield mdl-js-textfield">' +
-      //         '<input class="mdl-textfield__input new-comment" type="text">' +
-      //         '<label class="mdl-textfield__label">Comment...</label>' +
-      //       '</div>' +
-      //     '</form>' +
-      //   '</div>' +
-      // '</div>';
 
   // Create the DOM element from the HTML.
   var div = document.createElement('div');
@@ -358,17 +345,8 @@ function createPostElement(postId, title, text, authorId, authorPic) {
   var nameFlavors = postElement.getElementsByClassName('flavors_name')[0];
   var qtaFlavors = postElement.getElementsByClassName('flavors_qta')[0];
 
-  // var addCommentForm = postElement.getElementsByClassName('add-comment')[0];
-  // var commentInput = postElement.getElementsByClassName('new-comment')[0];
-  // var star = postElement.getElementsByClassName('starred')[0];
-  // var unStar = postElement.getElementsByClassName('not-starred')[0];
-
   // Set values.
   postElement.getElementsByClassName('shop_name')[0].innerText = text;
-  postElement.getElementsByClassName('mdl-card__title-text')[0].innerText = title;
-  //postElement.getElementsByClassName('username')[0].innerText = author || 'Anonymous';
-  postElement.getElementsByClassName('avatar')[0].style.backgroundImage = 'url("' +
-      (authorPic || './silhouette.jpg') + '")';
 
   // Listen for comments.
   // [START child_event_listener_recycler]
