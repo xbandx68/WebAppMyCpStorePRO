@@ -219,8 +219,8 @@ function startDatabaseQueries() {
        ArrDb = snapshotToArray(snapshot);
        //postsData.ShopAndy_40258bc19581191e.tb_cp[0].id
 
-       createHeaderElement();
-       console.log('postsData - id: ' + postsData.);
+       //createHeaderElement();
+       console.log('ArrDb: ' + ArrDb);
        var containerElement = sectionElement.getElementsByClassName('table-container')[0];
     });
 
