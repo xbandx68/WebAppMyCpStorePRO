@@ -229,9 +229,9 @@ function startDatabaseQueries() {
        for (var i = 0; i < rowCount; i++) {
             var dataItem = Object.assign({}, Object.values(postsData)[0].tb_store[i]);
             if(dataItem.hasOwnProperty('get_at'))
-              customers.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, dataItem.get_at]);
+              shops.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, dataItem.get_at]);
             else
-              customers.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, "-"]);
+              shops.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, "-"]);
         }
 
         //Create a HTML Table element.
