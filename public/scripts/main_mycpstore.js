@@ -214,14 +214,52 @@ function startDatabaseQueries() {
    var fetchPosts = function(postsRef, sectionElement) {
      postsRef.on('value', function(snapshot) {
        postsData = snapshot.val();
-       console.log(postsData);
-       var ArrDb = [];
-       ArrDb = snapshotToArray(snapshot);
-       //postsData.ShopAndy_40258bc19581191e.tb_cp[0].id
+       // lunghezza postData
+       lenPostData = Object.values(postsData).length;
+       // ottengo i valori iniziali
+       shop1 = Object.keys(postsData)[0];
+       shop2 = Object.keys(postsData)[1];
 
-       //createHeaderElement();
-       console.log('ArrDb: ' + ArrDb);
-       var containerElement = sectionElement.getElementsByClassName('table-container')[0];
+       lenCpShop1 = Object.values(postsData)[0].tb_cp.length;
+       nomeCpShop1 = Object.values(postsData)[0].tb_cp[0].name;
+       rowCount = Object.values(postsData)[0].tb_store.length;
+
+       var shops = new Array();
+       shops.push(["Shop", "id", "Conservatore", "Gusto", "PutAt", "GetAt"]);
+       for (var i = 0; i < rowCount; i++) {
+            dataItem = Object.assign({}, Object.values(postsData)[0].tb_store[i]);
+            if(dataItem.hasOwnProperty('get_at'))
+              customers.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, dataItem.get_at]);
+            else
+              customers.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, "-"]);
+        }
+
+        //Create a HTML Table element.
+       var table = document.createElement("TABLE");
+       table.border = "1";
+
+       //Get the count of columns.
+       var columnCount = shops[0].length;
+
+       //Add the header row.
+       var row = table.insertRow(-1);
+       for (var i = 0; i < columnCount; i++) {
+           var headerCell = document.createElement("TH");
+           headerCell.innerHTML = shops[0][i];
+           row.appendChild(headerCell);
+       }
+       //Add the data rows.
+       for (var i = 1; i < shops.length; i++) {
+           row = table.insertRow(-1);
+           for (var j = 0; j < columnCount; j++) {
+               var cell = row.insertCell(-1);
+               cell.innerHTML = shops[i][j];
+           }
+       }
+       var dvTable = document.getElementById("dvTable");
+       dvTable.innerHTML = "";
+       dvTable.appendChild(table);
+       //var containerElement = sectionElement.getElementsByClassName('table-container')[0];
     });
 
   //   postsRef.on('child_changed', function(data) {
