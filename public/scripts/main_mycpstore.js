@@ -215,19 +215,19 @@ function startDatabaseQueries() {
      postsRef.on('value', function(snapshot) {
        postsData = snapshot.val();
        // lunghezza postData
-       lenPostData = Object.values(postsData).length;
+       var lenPostData = Object.values(postsData).length;
        // ottengo i valori iniziali
-       shop1 = Object.keys(postsData)[0];
-       shop2 = Object.keys(postsData)[1];
+       var shop1 = Object.keys(postsData)[0];
+       var shop2 = Object.keys(postsData)[1];
 
-       lenCpShop1 = Object.values(postsData)[0].tb_cp.length;
-       nomeCpShop1 = Object.values(postsData)[0].tb_cp[0].name;
-       rowCount = Object.values(postsData)[0].tb_store.length;
+       var lenCpShop1 = Object.values(postsData)[0].tb_cp.length;
+       var nomeCpShop1 = Object.values(postsData)[0].tb_cp[0].name;
+       var rowCount = Object.values(postsData)[0].tb_store.length;
 
        var shops = new Array();
        shops.push(["Shop", "id", "Conservatore", "Gusto", "PutAt", "GetAt"]);
        for (var i = 0; i < rowCount; i++) {
-            dataItem = Object.assign({}, Object.values(postsData)[0].tb_store[i]);
+            var dataItem = Object.assign({}, Object.values(postsData)[0].tb_store[i]);
             if(dataItem.hasOwnProperty('get_at'))
               customers.push([nomeCpShop1, dataItem.id, dataItem.loc_cp, dataItem.nome, dataItem.put_at, dataItem.get_at]);
             else
