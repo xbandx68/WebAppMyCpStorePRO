@@ -170,9 +170,9 @@ function onAuthStateChanged(user) {
  */
 function cleanupUi() {
   // Remove all previously displayed posts.
-  settingsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-  homeSection.getElementsByClassName('posts-container')[0].innerHTML = '';
-  previsionSection.getElementsByClassName('posts-container')[0].innerHTML = '';
+  //settingsSection.getElementsByClassName('posts-container')[0].innerHTML = '';
+  //homeSection.getElementsByClassName('posts-container')[0].innerHTML = '';
+  //previsionSection.getElementsByClassName('posts-container')[0].innerHTML = '';
 
   // Stop all currently listening Firebase listeners.
   listeningFirebaseRefs.forEach(function(ref) {
